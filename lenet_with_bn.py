@@ -72,11 +72,7 @@ def train(model, device, train_loader, optimizer, epoch):
         pred = output.max(1, keepdim=True)[1]
         correct += pred.eq(target.view_as(pred)).sum().item()
         total += data.size(0)
-        
-        if (batch_idx+1) % 30 == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tloss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
+
     
     epoch_loss = running_loss / total
     epoch_acc = 100. * correct / total
@@ -99,8 +95,6 @@ def test(model, device, test_loader):
     
     test_loss /= total
     test_acc = 100. * correct / total
-    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
-        test_loss, correct, total, test_acc))
     return test_loss, test_acc
 
 def train_model(model, device, train_loader, test_loader, optimizer, epochs, val_accuracies):
